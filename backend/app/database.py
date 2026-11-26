@@ -1,11 +1,12 @@
 import os 
-from sqlachemy import create_engine
-from sqlachemy.orm import sessionmaker, declarative_base
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker, declarative_base
 
 DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./app.db")
 
 engine = create_engine(
     DATABASE_URL,
+    pool_pre_ping=True,
     connect_args={"check_same_thread": False} if DATABASE_URL.startswith("sqlite") else {},
 )
 
